@@ -120,6 +120,14 @@ const monsters = {
     wraith: {
         types: [monster_types.city, monster_types.undead],
         img: `${IMAGES_PATH}/23.jpg`
+    },
+    fire_imp: {
+        types: [monster_types.fire, monster_types.undead],
+        img: `${IMAGES_PATH}/10.jpg`
+    },
+    hybrid_sentinel: {
+        types: [monster_types.mount, monster_types.cave],
+        img: `${IMAGES_PATH}/11.jpg`
     }
 };
 
@@ -159,5 +167,9 @@ const extensions = {
     manor_of_ravens: {
         name: 'Manor of Ravens',
         monsters: [monsters.bandit, monsters.wraith]
+    },
+    lair_of_the_wyrm: {
+        name: 'Lair of the Wyrm',
+        monsters: [monsters.fire_imp, monsters.hybrid_sentinel]
     }
 };
