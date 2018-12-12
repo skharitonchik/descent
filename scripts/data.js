@@ -112,6 +112,14 @@ const monsters = {
     ynfernael_hulk: {
         types: [monster_types.undead, monster_types.fire],
         img: `${IMAGES_PATH}/15.jpg`
+    },
+    bandit: {
+        types: [monster_types.forest, monster_types.castle],
+        img: `${IMAGES_PATH}/22.jpg`
+    },
+    wraith: {
+        types: [monster_types.city, monster_types.undead],
+        img: `${IMAGES_PATH}/23.jpg`
     }
 };
 
@@ -147,5 +155,9 @@ const extensions = {
     shadow_of_nerekhall: {
         name: 'Shadow of Nerekhall',
         monsters: [monsters.changeling, monsters.ironbound, monsters.ynfernael_hulk, monsters.rat_swarm]
+    },
+    manor_of_ravens: {
+        name: 'Manor of Ravens',
+        monsters: [monsters.bandit, monsters.wraith]
     }
 };
