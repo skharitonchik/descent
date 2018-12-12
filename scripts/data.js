@@ -72,6 +72,18 @@ const monsters = {
     demon_lord: {
         types: [monster_types.fire, monster_types.undead],
         img: `${IMAGES_PATH}/31.jpg`
+    },
+    manticore: {
+        types: [monster_types.forest, monster_types.moon],
+        img: `${IMAGES_PATH}/26.jpg`
+    },
+    ogre: {
+        types: [monster_types.castle, monster_types.cave],
+        img: `${IMAGES_PATH}/29.jpg`
+    },
+    troll: {
+        types: [monster_types.mount, monster_types.cave],
+        img: `${IMAGES_PATH}/44.jpg`
     }
 };
 
@@ -95,5 +107,9 @@ const extensions = {
     treaty_of_champions: {
         name: 'Treaty of Champions',
         monsters: [monsters.demon_lord, monsters.skeleton_archer, monsters.crow_hag]
+    },
+    vision_of_dawn: {
+        name: 'Visions of Dawn',
+        monsters: [monsters.troll, monsters.manticore, monsters.ogre]
     }
 };
