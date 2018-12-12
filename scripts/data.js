@@ -96,6 +96,22 @@ const monsters = {
     shade: {
         types: [monster_types.undead, monster_types.ice],
         img: `${IMAGES_PATH}/42.jpg`
+    },
+    changeling: {
+        types: [monster_types.city, monster_types.undead],
+        img: `${IMAGES_PATH}/13.jpg`
+    },
+    rat_swarm: {
+        types: [monster_types.castle, monster_types.moon],
+        img: `${IMAGES_PATH}/12.jpg`
+    },
+    ironbound: {
+        types: [monster_types.city, monster_types.castle],
+        img: `${IMAGES_PATH}/14.jpg`
+    },
+    ynfernael_hulk: {
+        types: [monster_types.undead, monster_types.fire],
+        img: `${IMAGES_PATH}/15.jpg`
     }
 };
 
@@ -127,5 +143,9 @@ const extensions = {
     shards_of_everdark: {
         name: 'Shards of Everdark',
         monsters: [monsters.ice_wyrm, monsters.shade, monsters.dark_minotaur]
+    },
+    shadow_of_nerekhall: {
+        name: 'Shadow of Nerekhall',
+        monsters: [monsters.changeling, monsters.ironbound, monsters.ynfernael_hulk, monsters.rat_swarm]
     }
 };
