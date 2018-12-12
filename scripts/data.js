@@ -84,6 +84,18 @@ const monsters = {
     troll: {
         types: [monster_types.mount, monster_types.cave],
         img: `${IMAGES_PATH}/44.jpg`
+    },
+    dark_minotaur: {
+        types: [monster_types.city, monster_types.moon],
+        img: `${IMAGES_PATH}/56.jpg`
+    },
+    ice_wyrm: {
+        types: [monster_types.ice, monster_types.cave],
+        img: `${IMAGES_PATH}/40.jpg`
+    },
+    shade: {
+        types: [monster_types.undead, monster_types.ice],
+        img: `${IMAGES_PATH}/42.jpg`
     }
 };
 
@@ -111,5 +123,9 @@ const extensions = {
     vision_of_dawn: {
         name: 'Visions of Dawn',
         monsters: [monsters.troll, monsters.manticore, monsters.ogre]
+    },
+    shards_of_everdark: {
+        name: 'Shards of Everdark',
+        monsters: [monsters.ice_wyrm, monsters.shade, monsters.dark_minotaur]
     }
 };
