@@ -7,7 +7,7 @@
  * * array of strings, example of string -> {attribute_name}:{attribute_value}
  * events - object
  * * name - name of event to listen
- * * callback - event listener callback
+ * * callback - event listener callback (only regular functions if element context needed)
  * @param elConfig
  */
 const createDOMElement = (elConfig) => {
