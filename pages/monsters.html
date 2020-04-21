@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monster selector</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/monstersSelector.css">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="companies.html">Company</a></li>
+                <li><a href="monsters.html">Monsters</a></li>
+                <li><a href="companies.html">Overlord</a></li>
+                <li><a href="companies.html">Heroes</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="menu"></div>
+    <div class="extensions" id="extensions"></div>
+    <div class="monster-selectors" id="monstersSelectors"> test</div>
+    <div class="monster-types" id="monsterTypes"></div>
+    <div class="content" id="monsterContent"></div>
+</div>
+<script src="../scripts/data.js"></script>
+<script src="../scripts/utils.js"></script>
+<script src="../scripts/monstersSelector.js"></script>
+<script>
+    (function () {
+        MonstersSelector.drawAll();
+    })();
+</script>
+</body>
+</html>

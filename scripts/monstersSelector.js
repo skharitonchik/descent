@@ -49,7 +49,7 @@ let MonstersSelector = (function () {
         asideDiv.appendChild(showSelectedBtn);
     };
     const drawMonsterTypes = () => {
-        const iconPath = 'images/icons/{0}.png',
+        const iconPath = '../images/icons/{0}.png',
             types = Object.keys(monster_types),
             monsterTypesDiv = document.getElementById('monsterTypes');
 
@@ -91,7 +91,7 @@ let MonstersSelector = (function () {
             const monsterEl = createDOMElement({
                 name: 'img',
                 class: 'monster-img',
-                attributes: [`src:${m.img}`],
+                attributes: [`src:../${m.img}`],
                 events: [{
                     name: 'click',
                     callback: function () {

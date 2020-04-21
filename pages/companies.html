@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .menu ul {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="companies.html">Company</a></li>
+                <li><a href="monsters.html">Monsters</a></li>
+                <li><a href="companies.html">Overlord</a></li>
+                <li><a href="companies.html">Heroes</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="menu">
+        <ul>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/act_I_first_blod.pdf', 'pdf-page')">Первая кровь</button>
+            </li>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/act_I_fat_goblin.pdf', 'pdf-page')">Толстый гоблин</button>
+            </li>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/act_I_derion.pdf', 'pdf-page')">Замок Дерион</button>
+            </li>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/act_I_smert_na_kryliah.pdf', 'pdf-page')">Смерть на крыльях</button>
+            </li>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/act_I_cardinal.pdf', 'pdf-page')">Кардинал в беде</button>
+            </li>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/act_I_bal.pdf', 'pdf-page')">Бал маскарад</button>
+            </li>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/interludia_1.pdf', 'pdf-page')">Интерлюдия 1</button>
+            </li>
+            <li>
+                <button onclick="PdfCompany.render('../pdfs/interludia_2.pdf', 'pdf-page')">Интерлюдия 2</button>
+            </li>
+        </ul>
+    </div>
+
+    <div id="pdf-page" class="content">
+    </div>
+</div>
+
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="../scripts/pdfCompanyView.js"></script>
+</body>
+</html>

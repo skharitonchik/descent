@@ -1,0 +1,23 @@
+.wrapper {
+    display: grid;
+    grid-template-areas: ". h . ." "m m m m" ". e e ." "a t t ." "a c c .";
+    grid-gap: 5px;
+    grid-template-columns: 150px 1fr 1fr;
+}
+header {
+    grid-area: h;
+}
+
+header ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+}
+
+.menu {
+    grid-area: m;
+}
+
+.content {
+    grid-area: c;
+}
