@@ -35,7 +35,7 @@ const createDOMElement = (elConfig) => {
     if (Array.isArray(elConfig.attributes) && elConfig.attributes.length > 0) {
         elConfig.attributes.forEach((attr) => {
             const parsedAttr = attr.split(':');
-            element.setAttribute(parsedAttr[0], parsedAttr[1] || null);
+            element.setAttribute(parsedAttr[0], parsedAttr[1] || '');
         });
     }
 
