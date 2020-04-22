@@ -1,12 +1,27 @@
+const isMonsterInSelectedTypes = (selectedTypes, monsterTypes) => {
+    return selectedTypes.some(item => monsterTypes.includes(item));
+}
+
+const isMonsterInSelectedConditions = (selectedConditions, monsterConditions) => {
+    return selectedConditions.some(item => monsterConditions.includes(item));
+}
+
 let MonstersSelector = (function () {
     let selectedTypes = [];
     let selectedExtensions = [];
+    let selectedConditions = [];
 
     const filterMonsters = (availableMonsters) => {
-        if (selectedTypes.length === 0) {
-            return availableMonsters;
+        let finalMonsters = availableMonsters;
+        if (selectedTypes.length !== 0) {
+            finalMonsters = finalMonsters.filter(monster => isMonsterInSelectedTypes(selectedTypes, monster.types))
         }
-        return availableMonsters.filter(m => selectedTypes.includes(m.types[0]) || selectedTypes.includes(m.types[1]));
+
+        if (selectedConditions.length !== 0) {
+            finalMonsters = finalMonsters.filter(monster => isMonsterInSelectedConditions(selectedConditions, monster.conditions));
+        }
+
+        return finalMonsters;
     };
     const drawHelpers = () => {
         let asideDiv = document.getElementById('monstersSelectors');
@@ -45,8 +60,38 @@ let MonstersSelector = (function () {
             }]
         });
 
+        const allConditions = Object.keys(conditions);
+
+        let conditionsSelect = createDOMElement({
+            name: 'select',
+            class: 'conditions-selector',
+            attributes: ['multiple', 'name:conditions'],
+            events: [{
+                name: 'click',
+                callback: function () {           
+                    selectedConditions = [];         
+                    for (let i = 0; i < this.length; i++) {
+                        if (this.options[i].selected) selectedConditions.push(this.options[i].value);
+                    }
+                    drawAvailableMonsters();
+                }
+            }]
+        });
+
+        let conditionsOptions = allConditions.reduce((acc, option) => {
+            acc += createDOMElement({
+                name: 'option',
+                class: 'condition-options',
+                attributes: [`value:${option}`],
+                text: option
+            }).outerHTML;
+            return acc;
+        }, '');
+        conditionsSelect.innerHTML = conditionsOptions;
+
         asideDiv.appendChild(clearAllBtn);
         asideDiv.appendChild(showSelectedBtn);
+        asideDiv.appendChild(conditionsSelect);
     };
     const drawMonsterTypes = () => {
         const iconPath = '../images/icons/{0}.png',
@@ -71,7 +116,6 @@ let MonstersSelector = (function () {
                         } else {
                             selectedTypes.push(currentType);
                         }
-
                         drawAvailableMonsters();
                     }
                 }]
@@ -80,6 +124,7 @@ let MonstersSelector = (function () {
             monsterTypesDiv.appendChild(img);
         });
     };
+
     const drawAvailableMonsters = () => {
         let availableMonsters = [];
         selectedExtensions.forEach(e =>
@@ -107,6 +152,34 @@ let MonstersSelector = (function () {
         const extKeys = Object.keys(extensions),
             extensionsDiv = document.getElementById('extensions');
 
+        const allExtensionsButton = createDOMElement({
+            name: 'button',
+            class: 'descent-extension',
+            id: 'descent-extensaion-all',
+            text: 'All extensions',
+            events: [{
+                name: 'click',
+                callback: function () {
+                    const allButtons = document.getElementsByClassName('descent-extension');
+
+                    if (selectedExtensions.length === extKeys.length) {
+                        for (let i = 0; i < allButtons.length; i++) {
+                            allButtons[i].classList.remove('descent-extension-selected');
+                        }
+                        selectedExtensions = [];
+                    } else {
+                        
+                        for (let i = 0; i < allButtons.length; i++) {
+                            allButtons[i].classList.add('descent-extension-selected');
+                        }
+                        selectedExtensions = extKeys;
+                    }
+                    drawAvailableMonsters();
+                }
+            }]
+        });
+
+        extensionsDiv.appendChild(allExtensionsButton);
         extKeys.map(e => {
             const ext = extensions[e],
                 btn = createDOMElement({
@@ -119,9 +192,15 @@ let MonstersSelector = (function () {
                         callback: function () {
                             this.classList.toggle('descent-extension-selected');
                             if (selectedExtensions.includes(e)) {
+                                const allExtensionButtons = document.getElementById('descent-extensaion-all');
+                                allExtensionButtons.classList.remove('descent-extension-selected');
                                 selectedExtensions.splice(selectedExtensions.indexOf(e), 1);
                             } else {
                                 selectedExtensions.push(this.dataset.ext);
+                                if (selectedExtensions.length === extKeys.length) {
+                                    const allExtensionButtons = document.getElementById('descent-extensaion-all');
+                                    allExtensionButtons.classList.add('descent-extension-selected');
+                                }
                             }
                             drawAvailableMonsters();
                         }
