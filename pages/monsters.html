@@ -29,7 +29,10 @@
 <script src="../scripts/monstersSelector.js"></script>
 <script>
     (function () {
-        MonstersSelector.drawAll();
+        const monsterSelector = new MonstersSelector(document.getElementById('monsterContent'))
+        monsterSelector.drawHelpers(document.getElementById('monstersSelectors'))
+        monsterSelector.drawMonsterTypes(document.getElementById('monsterTypes'))
+        monsterSelector.drawExtensionsList(document.getElementById('extensions'))
     })();
 </script>
 </body>

@@ -1,8 +1,8 @@
 .wrapper {
     display: grid;
-    grid-template-areas: ". h . ." "m m m m" ". e e ." "a t t ." "a c c .";
+    grid-template-areas: ". h h ." "m m m m" ". e e e" "a t t t" "a c c c";
     grid-gap: 5px;
-    grid-template-columns: 150px 1fr 1fr;
+    grid-template-columns: 200px 1fr 1fr 1fr;
 }
 header {
     grid-area: h;
