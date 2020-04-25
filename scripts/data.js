@@ -22,7 +22,7 @@ const conditions = Object.freeze({
     poisoned: 'poisoned',
     stunned: 'stunned',
     terrified: 'terrified',
-    weakend: 'weakend' 
+    weakened: 'weakened'
 })
 
 const monsters = {
@@ -91,7 +91,7 @@ const monsters = {
         img: `${IMAGES_PATH}/55.jpg`,
         conditions: [conditions.bleeding, conditions.burning, conditions.cursed,
             conditions.diseased, conditions.doomed, conditions.immobilized,
-            conditions.poisoned, conditions.stunned, conditions.terrified, conditions.weakend]
+            conditions.poisoned, conditions.stunned, conditions.terrified, conditions.weakened]
     },
     skeleton_archer: {
         types: [monster_types.undead, monster_types.city],
