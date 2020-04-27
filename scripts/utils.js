@@ -45,9 +45,9 @@ const createDOMElement = (elConfig) => {
 
     element.add = (nodes) => {
         if (Array.isArray(nodes)) {
-            nodes.forEach(node => this.appendChild(node));
+            nodes.forEach(node => element.appendChild(node));
         } else {
-            this.appendChild(nodes);
+            element.appendChild(nodes);
         }
     };
 
