@@ -208,41 +208,41 @@ const companies = {
                 file: `${PDF_PATH}/base/interludia_2.pdf`
             }],
             act2: [{
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Буйство стихий',
+                file: `${PDF_PATH}/base/act_II_buistvo.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Ритуал теней',
+                file: `${PDF_PATH}/base/act_II_ritual.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Морозный штиль',
+                file: `${PDF_PATH}/base/act_II_moroz.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Кровь героев',
+                file: `${PDF_PATH}/base/act_II_final1.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Оскверненная гробница',
+                file: `${PDF_PATH}/base/act_II_grob.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Клинок рассвета',
+                file: `${PDF_PATH}/base/act_II_klinok.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Клад монстра',
+                file: `${PDF_PATH}/base/act_II_klad.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Идолы близнецы',
+                file: `${PDF_PATH}/base/act_II_idoli.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Взлет Дракона',
+                file: `${PDF_PATH}/base/act_II_vzlet.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Вираж дракона',
+                file: `${PDF_PATH}/base/act_II_viraz.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Человек который хотел стать королем (Властелин)',
+                file: `${PDF_PATH}/base/act_II_final1.pdf`
             }, {
-                name: '',
-                file: `${PDF_PATH}/base/`
+                name: 'Гриворн на воле (Герои)',
+                file: `${PDF_PATH}/base/act_II_final2.pdf`
             }]
         }
     },
