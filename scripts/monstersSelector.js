@@ -22,9 +22,18 @@ class MonstersSelector {
             events: [{
                 name: 'click',
                 callback: () => {
-                    this.selectedTypes = [];
-                    document.getElementsByClassName('monster-type-img')[0]
-                        .forEach(type => type.classList.remove('monster-type-img-selected'));
+                    this.selectedTypes = []
+                    this.selectedConditions = []
+                    const selectedTypesImages = document.getElementsByClassName('monster-type-img')
+                    for (let i = 0; i < selectedTypesImages.length; i++) {
+                        selectedTypesImages[i].classList.remove('monster-type-img-selected')
+                    }
+
+                    const checkboxes = document.getElementsByClassName('condition-checkbox')
+                    for (let i = 0; i < checkboxes.length; i++) {
+                        checkboxes[i].checked = false
+                    }
+
                     this.drawAvailableMonsters();
                 }
             }]
@@ -49,40 +58,48 @@ class MonstersSelector {
             }]
         });
 
-        const allConditions = Object.keys(conditions);
-
-        let conditionsSelect = createDOMElement({
-            name: 'select',
-            class: 'conditions-selector',
-            attributes: ['multiple', 'name:conditions'],
-            events: [{
-                name: 'click',
-                callback: (e) => {
-                    this.selectedConditions = [];
-                    for (let i = 0; i < e.target.length; i++) {
-                        if (e.target.options[i].selected) this.selectedConditions.push(e.target.options[i].value);
-                    }
-                    this.drawAvailableMonsters();
-                }
-            }]
+        let conditionsDiv = createDOMElement({
+            name: 'div',
+            class: 'conditions-selector'
         });
 
-        conditionsSelect.innerHTML = allConditions.reduce((acc, option) => {
-            acc += createDOMElement({
-                name: 'option',
-                class: 'condition-options',
-                attributes: [`value:${option}`],
-                text: option
-            }).outerHTML;
-            return acc;
-        }, '');
+        Object.keys(conditions).forEach((c) => {
+            const label = createDOMElement({
+                name: 'label',
+                class: `condition condition-${c}`,
+                attributes: [`for:condition-${c}`, 'name:condition', `value:${c}`]
+            })
+            const checkbox = createDOMElement({
+                name: 'input',
+                class: 'condition-checkbox',
+                attributes: [`id:condition-${c}`, 'type:checkbox', 'name:condition', `value:${c}`],
+                text: `${c}`,
+                events: [{
+                    name: 'change',
+                    callback: (e) => {
+                        const {checked, value} = e.target
+
+                        if (checked) {
+                            this.selectedConditions.push(value)
+                        } else {
+                            this.selectedConditions = this.selectedConditions.filter(c => c !== value)
+                        }
+
+                        this.drawAvailableMonsters()
+                    }
+                }]
+            })
+
+            label.add(checkbox)
+            conditionsDiv.add(label)
+        })
 
         parentElement.appendChild(clearAllBtn);
         parentElement.appendChild(showSelectedBtn);
-        parentElement.appendChild(conditionsSelect);
+        parentElement.appendChild(conditionsDiv);
     };
 
-    drawAvailableMonsters = (monsterContentDiv) => {
+    drawAvailableMonsters = () => {
         let availableMonsters = []
 
         this.selectedExtensions.forEach(e =>
@@ -135,7 +152,7 @@ class MonstersSelector {
                 events: [{
                     name: 'click',
                     callback: (e) => {
-                        const currentType = this.dataset.type;
+                        const currentType = e.target.dataset.type;
                         e.target.classList.toggle('monster-type-img-selected');
 
                         if (this.selectedTypes.includes(currentType)) {
