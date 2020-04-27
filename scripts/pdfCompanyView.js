@@ -1,5 +1,5 @@
-let PdfCompany = (function () {
-    const renderPDF = (url, canvasContainerId) => {
+class PdfCompany {
+    renderPDF(url, canvasContainerId) {
         const canvasContainer = document.getElementById(canvasContainerId)
         const renderPage = (page) => {
             let viewport = page.getViewport({scale: 1.5});
@@ -19,9 +19,11 @@ let PdfCompany = (function () {
         }
 
         const renderPages = (pdfDoc) => {
-            canvasContainer.innerHTML = '';
-            for (let num = 1; num <= pdfDoc.numPages; num++)
-                pdfDoc.getPage(num).then(renderPage);
+            let promises = []
+            for (let num = 1; num <= pdfDoc.numPages; num++) {
+                promises.push(pdfDoc.getPage(num).then(renderPage))
+            }
+            Promise.all(promises).then(() => canvasContainer.removeChild(canvasContainer.childNodes[0]))
         }
 
         // Loaded via <script> tag, create shortcut to access PDF.js exports.
@@ -30,11 +32,10 @@ let PdfCompany = (function () {
         // The workerSrc property shall be specified.
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
 
+        canvasContainer.innerHTML = ''
+        canvasContainer.insertAdjacentHTML('afterbegin', 'Loading...')
+
         pdfjsLib.getDocument(url).promise.then(renderPages);
 
     }
-
-    return {
-        render: renderPDF
-    };
-})();
+}
