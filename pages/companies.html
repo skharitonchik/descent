@@ -7,19 +7,23 @@
 </head>
 <body>
 <div class="wrapper">
-    <div class="menu"></div>
+    <div id="actSwitcher" class="menu"></div>
     <div class="extensions" id="extensions"></div>
     <div id="quests" class="quests"></div>
     <div id="pdf-page" class="content"></div>
 </div>
 <script src="../scripts/common.js"></script>
+<script src="../scripts/actSwitcher.js"></script>
 <script src="../scripts/data.js"></script>
 <script src="../scripts/utils.js"></script>
 <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 <script src="../scripts/pdfCompanyView.js"></script>
 <script src="../scripts/companiesPage.js"></script>
 <script>
-    new CompaniesPage(document.getElementsByClassName('wrapper')[0], document.getElementById('extensions'), document.getElementById('quests'))
+    new CompaniesPage(document.getElementsByClassName('wrapper')[0],
+        document.getElementById('extensions'),
+        document.getElementById('quests'),
+        document.getElementById('actSwitcher'))
 </script>
 </body>
 </html>

@@ -1,13 +1,17 @@
 class CompaniesPage {
-    constructor(wrapperDiv, extensionsDiv, questsDiv) {
+    constructor(wrapperDiv, extensionsDiv, questsDiv, actsDiv) {
         this.extensionsDiv = extensionsDiv
         this.questsDiv = questsDiv
-
+        this.currentAct = 'act1'
+        this.selectedCompany = null
         new Common(wrapperDiv).drawMenu()
+        new ActSwitcher(actsDiv, currentAct => {
+            this.currentAct = currentAct
+            this.drawQuestsLists()
+        })
         this.pdf = new PdfCompany()
 
         this.drawCompaniesList()
-
     }
 
     drawCompaniesList() {
@@ -26,7 +30,8 @@ class CompaniesPage {
 
                         Array.prototype.forEach.call(btns, b => b.classList.remove('descent-company-selected'))
                         target.classList.add('descent-company-selected');
-                        this.drawQuestsLists(target.dataset.ext)
+                        this.selectedCompany = target.dataset.ext
+                        this.drawQuestsLists()
                     }
                 }]
             });
@@ -35,11 +40,11 @@ class CompaniesPage {
         })
     }
 
-    drawQuestsLists(selectedExtension) {
+    drawQuestsLists() {
         this.questsDiv.innerHTML = ''
 
-        if (selectedExtension !== null) {
-            const quests = companies[selectedExtension].quests
+        if (this.selectedCompany !== null) {
+            const quests = companies[this.selectedCompany].quests
             const questCls = 'company-quest'
             const name = 'button'
             const events = [{
@@ -49,10 +54,10 @@ class CompaniesPage {
 
             this.questsDiv.appendChild(createDOMElement({
                 name, class: questCls, text: 'Map',
-                attributes: [`data-path:${companies[selectedExtension].map}`], events
+                attributes: [`data-path:${companies[this.selectedCompany].map}`], events
             }))
 
-            quests.act1.forEach(q =>
+            quests[this.currentAct].forEach(q =>
                 this.questsDiv.appendChild(createDOMElement({
                     name, class: questCls, text: q.name,
                     attributes: [`data-path:${q.file}`], events
