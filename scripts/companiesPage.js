@@ -1,0 +1,62 @@
+class CompaniesPage {
+    constructor(wrapperDiv, extensionsDiv, questsDiv) {
+        this.extensionsDiv = extensionsDiv
+        this.questsDiv = questsDiv
+
+        new Common(wrapperDiv).drawMenu()
+        this.pdf = new PdfCompany()
+
+        this.drawCompaniesList()
+
+    }
+
+    drawCompaniesList() {
+        Object.keys(companies).forEach(c => {
+            const comp = companies[c]
+            const btn = createDOMElement({
+                name: 'button',
+                class: 'descent-company',
+                text: comp.name,
+                attributes: [`data-ext:${c}`],
+                events: [{
+                    name: 'click',
+                    callback: (e) => {
+                        const {target} = e
+                        const btns = document.getElementsByClassName('descent-company')
+
+                        Array.prototype.forEach.call(btns, b => b.classList.remove('descent-company-selected'))
+                        target.classList.add('descent-company-selected');
+                        this.drawQuestsLists(target.dataset.ext)
+                    }
+                }]
+            });
+
+            this.extensionsDiv.appendChild(btn);
+        })
+    }
+
+    drawQuestsLists(selectedExtension) {
+        this.questsDiv.innerHTML = ''
+
+        if (selectedExtension !== null) {
+            const quests = companies[selectedExtension].quests
+            const questCls = 'company-quest'
+            const name = 'button'
+            const events = [{
+                name: 'click',
+                callback: e => this.pdf.renderPDF(`../${e.target.dataset.path}`, 'pdf-page')
+            }]
+
+            this.questsDiv.appendChild(createDOMElement({
+                name, class: questCls, text: 'Map',
+                attributes: [`data-path:${companies[selectedExtension].map}`], events
+            }))
+
+            quests.act1.forEach(q =>
+                this.questsDiv.appendChild(createDOMElement({
+                    name, class: questCls, text: q.name,
+                    attributes: [`data-path:${q.file}`], events
+                })))
+        }
+    }
+}
