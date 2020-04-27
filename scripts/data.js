@@ -13,15 +13,16 @@ const monster_types = Object.freeze({
 });
 
 const conditions = Object.freeze({
-    bleeding: 'bleeding',
-    burning: 'burning',
-    cursed: 'cursed',
-    diseased: 'diseased',
-    doomed: 'doomed',
     immobilized: 'immobilized',
     poisoned: 'poisoned',
     stunned: 'stunned',
     terrified: 'terrified',
+    doomed: 'doomed',
+    diseased: 'diseased',
+    cursed: 'cursed',
+
+    bleeding: 'bleeding',
+    burning: 'burning',
     weakened: 'weakened'
 })
 
@@ -174,6 +175,158 @@ const monsters = {
         conditions: []
     }
 };
+const PDF_PATH = 'scripts/data/companies'
+
+const companies = {
+    base: {
+        name: 'Base',
+        map: `${PDF_PATH}/base/map.pdf`,
+        quests: {
+            act1: [{
+                name: 'Первая кровь',
+                file: `${PDF_PATH}/base/act_I_first_blod.pdf`
+            }, {
+                name: 'Толстый гоблин',
+                file: `${PDF_PATH}/base/act_I_fat_goblin.pdf`
+            }, {
+                name: 'Бал маскарад',
+                file: `${PDF_PATH}/base/act_I_bal.pdf`
+            }, {
+                name: 'Замок Дерион',
+                file: `${PDF_PATH}/base/act_I_derion.pdf`
+            }, {
+                name: 'Смерть на Крыльях',
+                file: `${PDF_PATH}/base/act_I_smert_na_kryliah.pdf`
+            }, {
+                name: 'Кардинал в беде',
+                file: `${PDF_PATH}/base/act_I_cardinal.pdf`
+            }, {
+                name: 'Темница теней (Интерлюдия)',
+                file: `${PDF_PATH}/base/interludia_1.pdf`
+            }, {
+                name: 'Маски сброшены (Интерлюдия)',
+                file: `${PDF_PATH}/base/interludia_2.pdf`
+            }],
+            act2: [{
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }]
+        }
+    },
+    raven: {
+        name: 'Поместье воронов',
+        map: `${PDF_PATH}/raven/raven_map.pdf`,
+        quests: {
+            act1: [{
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }],
+            act2: [{
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }, {
+                name: '',
+                file: `${PDF_PATH}/base/`
+            }]
+        }
+    }
+}
 
 const extensions = {
     base: {
