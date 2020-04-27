@@ -1,34 +1,14 @@
-.menu {
-    grid-area: m;
-}
 
-.extensions {
-    grid-area: e;
-}
 
 .monster-types {
     grid-area: t;
 }
 
-.content {
-    grid-area: c;
-}
 
 .monster-selectors {
     grid-area: a;
     width: 150px;
     max-width: 150px;
-}
-
-.descent-extension {
-    border: 0;
-    padding: 20px;
-    margin-right: 10px;
-}
-
-.descent-extension-selected {
-    background: rgb(68, 126, 141);
-    border-radius: 5%;
 }
 
 .monster-img {
