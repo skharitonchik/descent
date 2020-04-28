@@ -57,11 +57,15 @@ class CompaniesPage {
                 attributes: [`data-path:${companies[this.selectedCompany].map}`], events
             }))
 
-            quests[this.currentAct].forEach(q =>
-                this.questsDiv.appendChild(createDOMElement({
-                    name, class: questCls, text: q.name,
-                    attributes: [`data-path:${q.file}`], events
-                })))
+            quests[this.currentAct].forEach(q => {
+                    if (q.name && q.file) {
+                        this.questsDiv.appendChild(createDOMElement({
+                            name, class: questCls, text: q.name,
+                            attributes: [`data-path:${q.file}`], events
+                        }))
+                    }
+                }
+            )
         }
     }
 }

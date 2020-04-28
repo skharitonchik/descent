@@ -218,7 +218,7 @@ const companies = {
                 file: `${PDF_PATH}/base/act_II_moroz.pdf`
             }, {
                 name: 'Кровь героев',
-                file: `${PDF_PATH}/base/act_II_final1.pdf`
+                file: `${PDF_PATH}/base/act_II_krov.pdf`
             }, {
                 name: 'Оскверненная гробница',
                 file: `${PDF_PATH}/base/act_II_grob.pdf`
