@@ -1,43 +1,40 @@
-const isMonsterInSelectedTypes = (selectedTypes, monsterTypes) => {
-    return selectedTypes.some(item => monsterTypes.includes(item));
-}
+const isMonsterInSelectedTypes = (selectedTypes, monsterTypes) =>
+    selectedTypes.some(item => monsterTypes.includes(item))
 
-const isMonsterInSelectedConditions = (selectedConditions, monsterConditions) => {
-    return selectedConditions.some(item => monsterConditions.includes(item));
-}
+const isMonsterInSelectedConditions = (selectedConditions, monsterConditions) =>
+    selectedConditions.some(item => monsterConditions.includes(item))
 
-let MonstersSelector = (function () {
-    let selectedTypes = [];
-    let selectedExtensions = [];
-    let selectedConditions = [];
+class MonstersSelector {
+    constructor(monsterContentDiv) {
+        this.selectedTypes = []
+        this.selectedExtensions = []
+        this.selectedConditions = []
 
-    const filterMonsters = (availableMonsters) => {
-        let finalMonsters = availableMonsters;
-        if (selectedTypes.length !== 0) {
-            finalMonsters = finalMonsters.filter(monster => isMonsterInSelectedTypes(selectedTypes, monster.types))
-        }
+        this.monsterContentDiv = monsterContentDiv
+    }
 
-        if (selectedConditions.length !== 0) {
-            finalMonsters = finalMonsters.filter(monster => isMonsterInSelectedConditions(selectedConditions, monster.conditions));
-        }
-
-        return finalMonsters;
-    };
-    const drawHelpers = () => {
-        let asideDiv = document.getElementById('monstersSelectors');
-
-        asideDiv.innerHTML = '';
+    drawHelpers(parentElement) {
+        parentElement.innerHTML = '';
 
         let clearAllBtn = createDOMElement({
             name: 'button',
             text: 'Clear all',
             events: [{
                 name: 'click',
-                callback: function () {
-                    selectedTypes = [];
-                    document.querySelectorAll('.monster-type-img')
-                        .forEach(type => type.classList.remove('monster-type-img-selected'));
-                    drawAvailableMonsters();
+                callback: () => {
+                    this.selectedTypes = []
+                    this.selectedConditions = []
+                    const selectedTypesImages = document.getElementsByClassName('monster-type-img')
+                    for (let i = 0; i < selectedTypesImages.length; i++) {
+                        selectedTypesImages[i].classList.remove('monster-type-img-selected')
+                    }
+
+                    const checkboxes = document.getElementsByClassName('condition-checkbox')
+                    for (let i = 0; i < checkboxes.length; i++) {
+                        checkboxes[i].checked = false
+                    }
+
+                    this.drawAvailableMonsters();
                 }
             }]
         });
@@ -47,56 +44,104 @@ let MonstersSelector = (function () {
             text: 'Show selected',
             events: [{
                 name: 'click',
-                callback: function () {
-                    let monsters = document.querySelectorAll('.monster-img');
-                    monsters.forEach(m => {
+                callback: () => {
+                    let monsters = document.getElementsByClassName('monster-img');
+                    for (let i = 0; i < monsters.length; i++) {
+                        let m = monsters[i];
                         if (m.classList.contains('monster-img-selected')) {
                             m.classList.remove('monster-img-selected');
                         } else {
                             m.classList.add('hidden');
                         }
-                    });
-                }
-            }]
-        });
-
-        const allConditions = Object.keys(conditions);
-
-        let conditionsSelect = createDOMElement({
-            name: 'select',
-            class: 'conditions-selector',
-            attributes: ['multiple', 'name:conditions'],
-            events: [{
-                name: 'click',
-                callback: function () {           
-                    selectedConditions = [];         
-                    for (let i = 0; i < this.length; i++) {
-                        if (this.options[i].selected) selectedConditions.push(this.options[i].value);
                     }
-                    drawAvailableMonsters();
                 }
             }]
         });
 
-        let conditionsOptions = allConditions.reduce((acc, option) => {
-            acc += createDOMElement({
-                name: 'option',
-                class: 'condition-options',
-                attributes: [`value:${option}`],
-                text: option
-            }).outerHTML;
-            return acc;
-        }, '');
-        conditionsSelect.innerHTML = conditionsOptions;
+        let conditionsDiv = createDOMElement({
+            name: 'div',
+            class: 'conditions-selector'
+        });
 
-        asideDiv.appendChild(clearAllBtn);
-        asideDiv.appendChild(showSelectedBtn);
-        asideDiv.appendChild(conditionsSelect);
+        Object.keys(conditions).forEach((c) => {
+            const label = createDOMElement({
+                name: 'label',
+                class: `condition condition-${c}`,
+                attributes: [`for:condition-${c}`, 'name:condition', `value:${c}`]
+            })
+            const checkbox = createDOMElement({
+                name: 'input',
+                class: 'condition-checkbox',
+                attributes: [`id:condition-${c}`, 'type:checkbox', 'name:condition', `value:${c}`],
+                text: `${c}`,
+                events: [{
+                    name: 'change',
+                    callback: (e) => {
+                        const {checked, value} = e.target
+
+                        if (checked) {
+                            this.selectedConditions.push(value)
+                        } else {
+                            this.selectedConditions = this.selectedConditions.filter(c => c !== value)
+                        }
+
+                        this.drawAvailableMonsters()
+                    }
+                }]
+            })
+
+            label.add(checkbox)
+            conditionsDiv.add(label)
+        })
+
+        parentElement.appendChild(clearAllBtn);
+        parentElement.appendChild(showSelectedBtn);
+        parentElement.appendChild(conditionsDiv);
     };
-    const drawMonsterTypes = () => {
+
+    drawAvailableMonsters = () => {
+        let availableMonsters = []
+
+        this.selectedExtensions.forEach(e =>
+            availableMonsters = availableMonsters.concat(extensions[e].monsters))
+
+        const monsters = this.filterMonsters(availableMonsters)
+
+        this.monsterContentDiv.innerHTML = '';
+
+        monsters.forEach(m => {
+            const monsterEl = createDOMElement({
+                name: 'img',
+                class: 'monster-img',
+                attributes: [`src:../${m.img}`],
+                events: [{
+                    name: 'click',
+                    callback: function (e) {
+                        e.target.classList.toggle('monster-img-selected');
+                    }
+                }]
+            });
+
+            this.monsterContentDiv.appendChild(monsterEl);
+        });
+    };
+
+    filterMonsters = (availableMonsters) => {
+        let finalMonsters = availableMonsters;
+        if (this.selectedTypes.length !== 0) {
+            finalMonsters = finalMonsters.filter(monster => isMonsterInSelectedTypes(this.selectedTypes, monster.types))
+        }
+
+        if (this.selectedConditions.length !== 0) {
+            finalMonsters = finalMonsters.filter(monster => isMonsterInSelectedConditions(this.selectedConditions, monster.conditions));
+        }
+
+        return finalMonsters;
+    };
+
+    drawMonsterTypes = (monsterTypesDiv) => {
         const iconPath = '../images/icons/{0}.png',
-            types = Object.keys(monster_types),
-            monsterTypesDiv = document.getElementById('monsterTypes');
+            types = Object.keys(monster_types)
 
         types.forEach(t => {
             const type = monster_types[t];
@@ -106,17 +151,17 @@ let MonstersSelector = (function () {
                 attributes: [`src:${iconPath.replace('{0}', type)}`, `data-type:${type}`],
                 events: [{
                     name: 'click',
-                    callback: function () {
-                        const currentType = this.dataset.type;
-                        this.classList.toggle('monster-type-img-selected');
+                    callback: (e) => {
+                        const currentType = e.target.dataset.type;
+                        e.target.classList.toggle('monster-type-img-selected');
 
-                        if (selectedTypes.includes(currentType)) {
-                            const i = selectedTypes.indexOf(currentType);
-                            selectedTypes.splice(i, 1);
+                        if (this.selectedTypes.includes(currentType)) {
+                            const i = this.selectedTypes.indexOf(currentType);
+                            this.selectedTypes.splice(i, 1);
                         } else {
-                            selectedTypes.push(currentType);
+                            this.selectedTypes.push(currentType);
                         }
-                        drawAvailableMonsters();
+                        this.drawAvailableMonsters();
                     }
                 }]
             });
@@ -125,32 +170,8 @@ let MonstersSelector = (function () {
         });
     };
 
-    const drawAvailableMonsters = () => {
-        let availableMonsters = [];
-        selectedExtensions.forEach(e =>
-            availableMonsters = availableMonsters.concat(extensions[e].monsters));
-        const monsters = filterMonsters(availableMonsters),
-            monsterContentDiv = document.getElementById('monsterContent');
-        monsterContentDiv.innerHTML = '';
-        monsters.forEach(m => {
-            const monsterEl = createDOMElement({
-                name: 'img',
-                class: 'monster-img',
-                attributes: [`src:../${m.img}`],
-                events: [{
-                    name: 'click',
-                    callback: function () {
-                        this.classList.toggle('monster-img-selected');
-                    }
-                }]
-            });
-
-            monsterContentDiv.appendChild(monsterEl);
-        });
-    };
-    const drawExtensionsList = () => {
-        const extKeys = Object.keys(extensions),
-            extensionsDiv = document.getElementById('extensions');
+    drawExtensionsList = (extensionsDiv) => {
+        const extKeys = Object.keys(extensions)
 
         const allExtensionsButton = createDOMElement({
             name: 'button',
@@ -159,27 +180,28 @@ let MonstersSelector = (function () {
             text: 'All extensions',
             events: [{
                 name: 'click',
-                callback: function () {
+                callback: () => {
                     const allButtons = document.getElementsByClassName('descent-extension');
 
-                    if (selectedExtensions.length === extKeys.length) {
+                    if (this.selectedExtensions.length === extKeys.length) {
                         for (let i = 0; i < allButtons.length; i++) {
                             allButtons[i].classList.remove('descent-extension-selected');
                         }
-                        selectedExtensions = [];
+                        this.selectedExtensions = [];
                     } else {
-                        
+
                         for (let i = 0; i < allButtons.length; i++) {
                             allButtons[i].classList.add('descent-extension-selected');
                         }
-                        selectedExtensions = extKeys;
+                        this.selectedExtensions = extKeys;
                     }
-                    drawAvailableMonsters();
+                    this.drawAvailableMonsters();
                 }
             }]
         });
 
-        extensionsDiv.appendChild(allExtensionsButton);
+        extensionsDiv.appendChild(allExtensionsButton)
+
         extKeys.map(e => {
             const ext = extensions[e],
                 btn = createDOMElement({
@@ -189,20 +211,20 @@ let MonstersSelector = (function () {
                     attributes: [`data-ext:${e}`],
                     events: [{
                         name: 'click',
-                        callback: function () {
-                            this.classList.toggle('descent-extension-selected');
-                            if (selectedExtensions.includes(e)) {
+                        callback: (e) => {
+                            e.target.classList.toggle('descent-extension-selected');
+                            if (this.selectedExtensions.includes(e)) {
                                 const allExtensionButtons = document.getElementById('descent-extensaion-all');
                                 allExtensionButtons.classList.remove('descent-extension-selected');
-                                selectedExtensions.splice(selectedExtensions.indexOf(e), 1);
+                                this.selectedExtensions.splice(this.selectedExtensions.indexOf(e), 1);
                             } else {
-                                selectedExtensions.push(this.dataset.ext);
-                                if (selectedExtensions.length === extKeys.length) {
+                                this.selectedExtensions.push(e.target.dataset.ext);
+                                if (this.selectedExtensions.length === extKeys.length) {
                                     const allExtensionButtons = document.getElementById('descent-extensaion-all');
                                     allExtensionButtons.classList.add('descent-extension-selected');
                                 }
                             }
-                            drawAvailableMonsters();
+                            this.drawAvailableMonsters();
                         }
                     }]
                 });
@@ -210,12 +232,4 @@ let MonstersSelector = (function () {
             extensionsDiv.appendChild(btn);
         });
     };
-
-    return {
-        drawAll: () => {
-            drawMonsterTypes();
-            drawExtensionsList();
-            drawHelpers();
-        }
-    };
-})();
+}

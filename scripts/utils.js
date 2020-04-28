@@ -40,14 +40,14 @@ const createDOMElement = (elConfig) => {
     }
 
     if (elConfig.events && Array.isArray(elConfig.events)) {
-        elConfig.events.forEach(event => element.addEventListener(event.name, event.callback.bind(element)));
+        elConfig.events.forEach(event => element.addEventListener(event.name, (e) => event.callback(e)))
     }
 
     element.add = (nodes) => {
         if (Array.isArray(nodes)) {
-            nodes.forEach(node => this.appendChild(node));
+            nodes.forEach(node => element.appendChild(node));
         } else {
-            this.appendChild(nodes);
+            element.appendChild(nodes);
         }
     };
 

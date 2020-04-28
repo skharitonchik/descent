@@ -1,9 +1,10 @@
 .wrapper {
     display: grid;
-    grid-template-areas: ". h . ." "m m m m" ". e e ." "a t t ." "a c c .";
+    grid-template-areas: ". h h ." "m . . ." ". e e e" "n t t t" "a c c c";
     grid-gap: 5px;
-    grid-template-columns: 150px 1fr 1fr;
+    grid-template-columns: 200px 1fr 1fr 1fr;
 }
+
 header {
     grid-area: h;
 }
@@ -14,10 +15,99 @@ header ul {
     justify-content: space-between;
 }
 
+*:focus {
+    outline: none;
+}
+
 .menu {
     grid-area: m;
 }
 
 .content {
     grid-area: c;
+}
+
+.act-switcher {
+    grid-area: m;
+}
+
+.content {
+    grid-area: c;
+}
+
+.extensions {
+    grid-area: e;
+}
+
+.quests {
+    grid-area: a;
+}
+
+.company-quest {
+    display: list-item;
+    margin-bottom: 5px;
+}
+
+.descent-extension,
+.descent-company {
+    border: 0;
+    padding: 20px;
+    margin-right: 10px;
+}
+
+.descent-extension-selected,
+.descent-company-selected {
+    background: rgb(68, 126, 141);
+    border-radius: 5%;
+}
+
+.act-btn {
+    width: 50px;
+    height: 50px;
+    margin: 5px 5px;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    border-radius: 5%;
+
+    opacity: 0.3;
+}
+
+.act-I-btn {
+    background-image: url("../images/act_I.png");
+}
+
+.act-II-btn {
+    background-image: url("../images/act_II.png");
+}
+
+.act-active {
+    opacity: 1;
+}
+
+.condition {
+    width: 200px;
+    height: 300px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 200px 300px;
+}
+
+.condition-doomed {
+    background-image: url("../images/conditions/doomed.png");
+}
+
+.condition-immobilized {
+    background-image: url("../images/conditions/immobilized.png");
+}
+
+.condition-poisoned {
+    background-image: url("../images/conditions/poisoned.png");
+}
+
+.condition-stunned {
+    background-image: url("../images/conditions/stunned.png");
+}
+
+.condition-terrified {
+    background-image: url("../images/conditions/terrified.png");
 }
