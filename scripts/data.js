@@ -201,10 +201,10 @@ const companies = {
                 name: 'Кардинал в беде',
                 file: `${PDF_PATH}/base/act_I_cardinal.pdf`
             }, {
-                name: 'Темница теней (Интерлюдия)',
+                name: 'Темница теней (Интерлюдия Герои)',
                 file: `${PDF_PATH}/base/interludia_1.pdf`
             }, {
-                name: 'Маски сброшены (Интерлюдия)',
+                name: 'Маски сброшены (Интерлюдия Властелин)',
                 file: `${PDF_PATH}/base/interludia_2.pdf`
             }],
             act2: [{
